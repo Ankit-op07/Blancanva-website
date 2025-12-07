@@ -11,7 +11,7 @@ export const ProjectsSection: React.FC = () => {
       {/* overlay heading */}
       <div className="pointer-events-none relative z-5 mix-blend-exclusion">
         <AnimatedText
-          text="Latest Projects"
+          text="Our Projects"
           margin={200}
           once={true}
           className="inline-block text-4xl leading-9 tracking-tighter whitespace-nowrap text-white md:text-5xl md:leading-12 lg:text-6xl"
@@ -25,5 +25,6 @@ export const ProjectsSection: React.FC = () => {
         <Icon name="arrow-right" height={18} width={18} className="group-hover:animate-wiggle-right" strokeWidth={0.5} />
       </Link>
     </section>
+
   )
 }

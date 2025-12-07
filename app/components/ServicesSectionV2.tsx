@@ -1,145 +1,157 @@
+import React from "react"
 import clsx from "clsx"
-import { Icon } from "./Icon"
-import { Text } from "../ui/Elements"
 import { AnimatedH2 } from "./ui/AnimatedH2"
-import type { Variants } from "motion"
-import { MotionUl, MotionLi } from "../utils/lazy-ui"
+import { Text } from "../ui/Elements"
+import type { Variants } from "motion/react"
+import { MotionDiv } from "../utils/lazy-ui"
+import { Icon } from "./Icon" // Assuming you have a generic icon for the placeholder content
 
-const tech = [
-  { name: "React", src: "react" },
-  { name: "Next", src: "next" },
-  { name: "TypeScript", src: "typescript" },
-  { name: "Python", src: "python" },
-  { name: "Express", src: "express" },
-  { name: "OpenAI", src: "openai" },
-  { name: "MongoDB", src: "mongodb" },
-  { name: "PostgreSQL", src: "postgresql" },
-  { name: "Figma", src: "figma" },
-  { name: "Motion", src: "motion" },
+// Data extracted from the requested image
+const servicesData = [
+  {
+    title: "Brand Identity Design",
+    description:
+      "We craft clean, modern brand identities that communicate who you are and what you stand for. From logos to full identity systems, we make your brand unforgettable.",
+    tags: ["Branding", "Visual Identity", "Logo Design"],
+  },
+  {
+    title: "Marketing Strategy",
+    description:
+      "We build performance-driven marketing strategies that help brands connect with the right audience through clear messaging and purposeful storytelling.",
+    tags: ["Marketing", "Strategy", "Campaigns"],
+  },
+  {
+    title: "Social Media Management",
+    description:
+      "End-to-end content creation, post design, captions, scheduling, and growth strategy. We maintain your brand's voice while making your feed look polished and consistent.",
+    tags: ["Social Media", "Content Creation", "SMM"],
+  },
+  {
+    title: "UI/UX Design",
+    description:
+      "We design intuitive digital experiences with clean layouts, strong hierarchy, and clear interactions. Perfect for websites, mobile apps, and SaaS products.",
+    tags: ["UI/UX", "Web Design", "App Design"],
+  },
+  {
+    title: "Website & App Development",
+    description:
+      "Beautiful, responsive, and fast websites built with SEO-friendly structure and clean user-first design. Ideal for businesses, portfolios, and e-commerce.",
+    tags: ["Web Development", "Frontend", "WordPress"],
+  },
+  {
+    title: "Graphic Design",
+    description:
+      "From marketing materials to campaign creatives, we design high-quality visuals that elevate your brand across every touchpoint.",
+    tags: ["Graphic Design", "Print", "Creatives"],
+  },
 ]
 
-const services = [
-  { name: "Full Stack Development", src: "magic-wand" },
-  { name: "React Development", src: "paint-bucket" },
-  { name: "Performance Optimization", src: "web" },
-  { name: "UI/UX Design", src: "world" },
-  { name: "Code Reviews", src: "planet" },
-  { name: "Advanced Motion", src: "cube" },
-]
-
-const container: Variants = {
-  hidden: {},
+// Animation Variants
+const containerVariants: Variants = {
+  hidden: { opacity: 0 },
   visible: {
+    opacity: 1,
     transition: {
-      staggerChildren: 0.05,
+      staggerChildren: 0.1,
     },
   },
 }
 
-const container2 = {
-  hidden: {},
-  visible: {
-    transition: {
-      staggerChildren: 0.08,
-      delayChildren: 0.5,
-    },
-  },
-}
-const element = {
+const cardVariants: Variants = {
   hidden: {
     opacity: 0,
-    x: -40,
+    y: 20,
     filter: "blur(4px)",
   },
   visible: {
     opacity: 1,
-    x: 0,
-    filter: "blur(0px)",
-  },
-}
-
-const element2: Variants = {
-  hidden: {
-    opacity: 0,
-    scale: 0.5,
-    filter: "blur(4px)",
-  },
-  visible: {
-    opacity: 1,
-    scale: 1,
+    y: 0,
     filter: "blur(0px)",
     transition: {
-      duration: 0.2,
-      type: "spring",
-      stiffness: 100,
-      damping: 10,
+      duration: 0.4,
+      ease: "easeOut",
     },
   },
 }
+
 export const ServicesSectionV2: React.FC = ({ className = "" }: { className?: string }) => {
   return (
-    <section id="technologies" className={clsx("inside-container relative z-2 items-start justify-center md:flex-row md:items-center", className)}>
-      {/*  LEFT COLUMN  */}
-      <div className="flex h-full flex-col gap-16 max-md:w-full md:[flex:2_0_0px]">
-        <AnimatedH2>
-          Engineering <br />
-          <span className="text-slate-500">Toolkit</span>
-        </AnimatedH2>
-
-        {/* Tech Stack */}
-        <div className="w-full">
-          <Text size="base" className="mb-8">
-            My tech stack
-          </Text>
-
-          <MotionUl
-            className="grid grid-cols-5 gap-8 max-[420px]:justify-items-center md:justify-items-center"
-            variants={container}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "0px 0px -100px 0px" }}
-          >
-            {tech.map(({ name, src }) => (
-              <MotionLi key={name} variants={element}>
-                <div className="group relative">
-                  <input placeholder={name} type="checkbox" className="peer hidden" id={name} />
-
-                  <label
-                    htmlFor={name}
-                    className="button-shadow flex h-13 w-13 items-center justify-center rounded-xl border border-gray-200 bg-white peer-checked:translate-y-0.5 peer-checked:shadow-none hover:translate-y-0.5"
-                  >
-                    <Icon name={src} width={30} height={30} className="object-contain" />
-                  </label>
-                  {/* optional tooltip */}
-                  <span className="absolute -top-7 left-1/2 -translate-x-1/2 rounded-full bg-black px-2 py-1 text-xs text-white opacity-0 transition delay-100 duration-300 group-hover:opacity-100 peer-checked:opacity-100">
-                    {name}
-                  </span>
-                </div>
-              </MotionLi>
-            ))}
-          </MotionUl>
+    // Section with a light gray background to make white cards pop, matching the image
+    <section id="services" className={clsx("bg-white py-16 md:py-24", className)}>
+      <div className="inside-container">
+        <div className="mb-12 md:mb-16">
+          <AnimatedH2 className="text-center !text-black">Our Services</AnimatedH2>
         </div>
+
+        <MotionDiv
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3"
+        >
+          {servicesData.map((service, index) => (
+            <ServiceCard key={index} service={service} />
+          ))}
+        </MotionDiv>
+      </div>
+    </section>
+  )
+}
+
+// Sub-component for individual cards
+const ServiceCard = ({ service }: { service: (typeof servicesData)[0] }) => {
+  return (
+    <MotionDiv
+      variants={cardVariants}
+      className="group relative flex h-full flex-col rounded-2xl border border-gray-200 bg-white p-6 shadow-sm transition-shadow duration-300 hover:shadow-md"
+    >
+      {/* Top Row: Illustration Placeholder & Explore Button */}
+      <div className="mb-6 flex items-start justify-between">
+        {/* Image/Illustration Placeholder */}
+        {/* Since I don't have the exact illustrations, I'm using a placeholder block to maintain layout structure.
+            Replace this div with your actual <img> or <Icon> component when you have them. */}
+        <div className="flex h-16 w-16 items-center justify-center rounded-lg bg-gray-100 text-gray-400">
+          {/* Placeholder Icon - Replace with actual service icon */}
+          <Icon name="cube" width={32} height={32} className="opacity-50" />
+        </div>
+
+        {/* Explore more button */}
+        <button className="flex items-center gap-1 rounded-full border border-gray-300 px-4 py-1.5 text-xs font-medium text-gray-600 transition-colors hover:border-gray-400 hover:text-black">
+          Explore more
+          {/* Simple inline SVG for top-right arrow */}
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="14"
+            height="14"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className="translate-y-[1px]"
+          >
+            <line x1="7" y1="17" x2="17" y2="7"></line>
+            <polyline points="7 7 17 7 17 17"></polyline>
+          </svg>
+        </button>
       </div>
 
-      {/*  RIGHT COLUMN  */}
-      <MotionUl
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.8 }}
-        variants={container2}
-        className="grid [flex:1_0_0px] grid-cols-2 gap-8 md:grid-cols-1"
-      >
-        {services.map(({ name, src }) => (
-          <MotionLi key={name} variants={element2} className="flex items-center gap-3">
-            <span className="button-shadow flex aspect-square h-10 w-10 items-center justify-center rounded-full bg-black">
-              <Icon name={src} width={25} height={30} className="object-contain invert" />
-            </span>
-            <Text as="span" size="sm">
-              {name}
-            </Text>
-          </MotionLi>
+      {/* Content */}
+      <div className="flex flex-grow flex-col">
+        <h3 className="mb-3 text-xl font-bold text-gray-900">{service.title}</h3>
+        <Text className="mb-6 flex-grow text-sm leading-relaxed text-gray-600">{service.description}</Text>
+      </div>
+
+      {/* Tags / Badges */}
+      <div className="flex flex-wrap gap-2">
+        {service.tags.map((tag) => (
+          <span key={tag} className="rounded-full bg-gray-200/80 px-3 py-1 text-[11px] font-medium text-gray-700">
+            {tag}
+          </span>
         ))}
-      </MotionUl>
-    </section>
+      </div>
+    </MotionDiv>
   )
 }

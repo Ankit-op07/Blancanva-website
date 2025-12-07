@@ -7,7 +7,6 @@ export const Card = ({
   color,
   type = "",
   reveal = true,
-  text = "View Project",
 }: {
   src: StaticImageData
   alt: string
@@ -18,29 +17,53 @@ export const Card = ({
 }) => {
   return (
     <div
-      className={`h-full w-full overflow-hidden rounded-2xl [&_span]:transition-opacity [&_span]:duration-400 ${reveal ? "reveal-false:[&_span]:opacity-0" : "group relative"}`}
+      className={`group relative h-full w-full overflow-hidden rounded-2xl`}
     >
-      <div className="h-full w-full text-white duration-400 group-hover:scale-105">
-        <span
-          className={clsx(
-            "absolute inset-0 overflow-hidden rounded-2xl opacity-90 contain-strict group-hover:opacity-0 after:absolute after:inset-0 after:z-4 after:rounded-2xl after:duration-200 after:content-['']"
-          )}
-          style={
-            { "--color-gradient": color, background: "linear-gradient(to top, var(--color-gradient), #00000056 25%, transparent 50%)" } as React.CSSProperties
-          }
-        >
-          <span className="absolute top-2 left-2 w-fit rounded-full border border-gray-700 bg-black px-4 py-2 text-xs shadow-md">{type}</span>
-          <span className="absolute bottom-4 left-4 z-5 w-fit text-lg">{alt.split(" ")[0]}</span>
-          <span className="absolute right-4 bottom-4 z-5 flex w-fit items-center gap-1 text-xs">
-            {/* SVG inlined for performance */}
-            <svg className="h-4 w-4" height="16" width="16" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+      {/* Image Container - handles the zoom effect */}
+      <div className="h-full w-full duration-500 group-hover:scale-105">
+        <Image 
+          className="h-full w-full bg-gray-200 object-cover" 
+          src={src} 
+          alt={alt} 
+          priority 
+          decoding="async" 
+        />
+      </div>
+
+      {/* Overlay Content */}
+      <span
+        className={clsx(
+          "absolute inset-0 z-10 flex flex-col justify-between p-4 transition-opacity duration-400",
+          reveal ? "opacity-100" : "opacity-0" 
+        )}
+        style={
+          { 
+            // Gradient ensures text readability
+            background: `linear-gradient(to top, ${color || '#000000'}cc 0%, transparent 60%)` 
+          } as React.CSSProperties
+        }
+      >
+        {/* Top Section: Type Badge */}
+        <div className="flex justify-start">
+          <span className="w-fit rounded-full border border-white/20 bg-gray-900/50 px-3 py-1 text-xs font-medium text-white backdrop-blur-sm shadow-sm">
+            {type}
+          </span>
+        </div>
+
+        {/* Bottom Section: Title & Circular Arrow Button */}
+        <div className="flex items-end justify-between text-white">
+          <span className="text-xl font-medium tracking-tight shadow-black/20 drop-shadow-md">
+            {alt.split(" ")[0]}
+          </span>
+          
+          {/* Circular Arrow Icon */}
+          <span className="flex h-9 w-9 items-center justify-center rounded-full border border-white/30 bg-white/10 backdrop-blur-sm transition-all duration-300 group-hover:bg-white group-hover:text-black">
+            <svg className="h-4 w-4" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
               <path fillRule="evenodd" d="M14 2.5a.5.5 0 0 0-.5-.5h-6a.5.5 0 0 0 0 1h4.793L2.146 13.146a.5.5 0 0 0 .708.708L13 3.707V8.5a.5.5 0 0 0 1 0z" />
             </svg>
-            {text}
           </span>
-        </span>
-        <Image className="h-full w-full bg-gray-200" src={src} alt={alt} priority decoding="async" />
-      </div>
+        </div>
+      </span>
     </div>
   )
 }

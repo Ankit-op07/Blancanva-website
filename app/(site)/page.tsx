@@ -44,11 +44,11 @@ const PortfolioPage: React.FC = () => {
         }}
       />
       <HeroV2 />
-      <div className="border-b border-gray-200" />
+      {/* <div className="border-b border-gray-200" /> */}
       <ProjectsSection />
-      <AboutSectionV2 />
+      {/* <AboutSectionV2 /> */}
       <ServicesSectionV2 />
-      <RecruiterContact />
+      {/* <RecruiterContact /> */}
       {/* <FAQSection /> */}
     </main>
   )

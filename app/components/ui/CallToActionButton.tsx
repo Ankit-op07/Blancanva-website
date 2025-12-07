@@ -1,93 +1,68 @@
-import Image from "next/image"
-import profilePhoto from "@/public/assets/founder.jpg"
-import clsx from "clsx"
-import type { Variants } from "motion"
-import { MotionButton, MotionDiv } from "@/app/utils/lazy-ui"
-import { SITE_NAP } from "@/config/siteConfig"
-import { Icon } from "../Icon"
+import { Link } from "../../utils/Link"
+import type { Variants } from "motion/react"
+import { MotionDiv } from "@/app/utils/lazy-ui"
 
 export const CallToActionButton = () => {
-  const buttonVariants: Variants = {
-    initial: {
-      opacity: 0,
-      filter: `blur(5px)`,
-      scale: 0.8,
-    },
+  const containerVariants: Variants = {
+    initial: { opacity: 0 },
     animate: {
       opacity: 1,
-      filter: "blur(0px)",
-      scale: 1,
       transition: {
-        delay: 0.7,
-      },
-    },
-    hover: {
-      boxShadow: "none",
-      y: 4,
-      transition: {
-        duration: 0.2,
+        staggerChildren: 0.1,
+        delayChildren: 0.6, // Waits for text to finish
       },
     },
   }
 
-  const youVariants: Variants = {
+  const buttonVariants: Variants = {
     initial: {
       opacity: 0,
-      x: -10,
-
-      width: 0,
+      filter: "blur(4px)",
+      y: 10,
     },
     animate: {
-      opacity: 0,
-      x: -10,
-
-      width: 0,
-    },
-    hover: {
       opacity: 1,
-      x: 0,
-      width: 45,
-
+      filter: "blur(0px)",
+      y: 0,
       transition: {
-        type: "spring",
-        stiffness: 300,
-        damping: 20,
-        opacity: {
-          delay: 0.1,
-        },
+        duration: 0.4,
+        ease: "easeOut",
       },
     },
   }
 
   return (
-    <a href={SITE_NAP.profiles.github} target="_blank" rel="noopener" aria-label="Austin Serb's GitHub">
-      <MotionButton
-        initial="initial"
-        animate="animate"
-        whileHover="hover"
-        variants={buttonVariants}
-        className="group bubble-hover-cta active relative z-1 inline-flex w-max items-center gap-2 rounded-full bg-black px-3 py-2.5 text-base font-medium tracking-tight text-white shadow-xl shadow-black/20"
-      >
-        <div className="pointer-events-none absolute inset-0.5 -z-1 rounded-full [background-image:url('/assets/framer-noise.png')] [background-size:164px] bg-repeat opacity-12" />
-        <div className="relative flex items-center gap-1">
-          {/* Avatar */}
-          <div className="relative h-7 w-7 rounded-full">
-            <Image src={profilePhoto} alt="Profile photo of the founder" fill sizes="50px" className="rounded-full object-cover ring-2 ring-white/75" />
-          </div>
+    <MotionDiv
+      variants={containerVariants}
+      initial="initial"
+      animate="animate"
+      className="flex flex-wrap items-center gap-4 pt-4"
+    >
+      {/* Button 1: View Our Work (Outline Style) */}
+      <Link href="/projects">
+        <MotionDiv
+          variants={buttonVariants}
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.98 }}
+          className="group relative inline-flex items-center justify-center rounded border border-slate-300 bg-transparent px-6 py-3 text-sm font-medium text-slate-900 transition-all duration-300 hover:border-slate-900 hover:bg-slate-50"
+        >
+          View Our Work
+        </MotionDiv>
+      </Link>
 
-          {/* + You entrance */}
-          <MotionDiv variants={youVariants} className={clsx("hidden items-center gap-1 md:flex")}>
-            <span className="text-xl">+</span>
-            <Icon
-              name="github"
-              className="flex h-7 w-7 items-center justify-center rounded-full bg-white text-sm font-semibold text-black ring-1 ring-black/50"
-            />
-          </MotionDiv>
-        </div>
-        See My Github
-      </MotionButton>
-    </a>
+      {/* Button 2: Contact Us (Dark Fill Style) */}
+      <Link href="/contact">
+        <MotionDiv
+          variants={buttonVariants}
+          whileHover={{ scale: 1.02, boxShadow: "0 10px 30px -10px rgba(0,0,0,0.3)" }}
+          whileTap={{ scale: 0.98 }}
+          className="relative inline-flex items-center justify-center overflow-hidden rounded bg-[#333333] px-7 py-3 text-sm font-medium text-white shadow-lg transition-colors hover:bg-black"
+        >
+          {/* Optional noise texture for premium feel */}
+          <div className="pointer-events-none absolute inset-0 -z-1 opacity-20 [background-image:url('/assets/framer-noise.png')] [background-size:100px] bg-repeat" />
+          <span className="relative z-10">Contact Us</span>
+        </MotionDiv>
+      </Link>
+    </MotionDiv>
   )
 }
-
-// === VARIANTS ===

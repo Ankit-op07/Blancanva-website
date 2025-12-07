@@ -9,7 +9,7 @@ import { MotionDiv } from "../utils/lazy-ui"
 
 export const AboutSectionV2 = ({ className = "" }: { className?: string }) => {
   return (
-    <section id="about" className={clsx("border-y border-gray-200 bg-white", className)}>
+    <section id="about" className={clsx(" bg-white", className)}>
       <div className="inside-container relative z-2">
         {/* HEADLINE */}
         <AnimatedH2>
