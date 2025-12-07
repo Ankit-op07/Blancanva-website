@@ -1,8 +1,6 @@
 import { HeroV2 } from "../components/HeroV2"
 import { ProjectsSection } from "../components/ProjectsSection"
-import { AboutSectionV2 } from "../components/AboutSectionV2"
 import { ServicesSectionV2 } from "../components/ServicesSectionV2"
-import { RecruiterContact } from "../components/RecruiterContact"
 import { Metadata } from "next"
 import { SITE_CONFIG, SITE_SLUGS } from "@/config/siteConfig"
 import { homeGraph } from "@/config/schemas"
